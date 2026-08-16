@@ -2,7 +2,7 @@
 
 An exercise on the simulation of the propagation of a forest fire in Java.
 
-An _h_ by _l_ discrete field represents a forest, and each slot can have three states:
+An $l$ by $h$ discrete field represents a forest, and each slot can have three states:
 - base state: living tree
 - on fire
 - ashes
@@ -11,28 +11,28 @@ Initially, all slots are on the base state, except for a subset of the slots, wh
 
 Then, at each time step, the simulation changes a slot on fire into a slot of ashes.
 Also, it propagates the fire:
-with a probability of _p_, each one of the four adjacent slots can transition from the base state into a slot on fire (slots in ashes do not catch on fire again).
+with a probability of $p$, each one of the four adjacent slots can transition from the base state into a slot on fire (slots in ashes do not catch on fire again).
 
 The simulation halts when there are no more slots on fire.
 
 ## Inputs
 
-The inputs are _h_, _l_ and _p_, as well as a list of the initial fire positions.
+The inputs are $h$, $l$ and $p$, as well as a list of the initial fire positions.
 The data is stored in a JSON file.
 
 ## Outputs
 
-A rendering of the _h_ by _l_ forest field that updates with each time step.
+A rendering of the $h$ by $l$ forest field that updates with each time step.
 
 ---
 
 ## Approach
 
 Let us store the forest field data in an integer table initialized at 0 everywhere.
-This avoids creating $h \ctimes l$ objects in order to be more memory-efficient.
+This avoids creating $h \times l$ objects in order to be more memory-efficient.
 Let us also define that 0 represents the base-state of a living tree, while 1 represents a fire and 2 represents ashes.
 
-The simulation should start by checking the validity of the input data: _h_ and _l_ are positive integers, _p_ is a value between 0 and 1, and the initial positions of fire cells should be a list of positive integer pairs (_x_, _y_) where $0 < x \leq l$ and $0 < y \leq h$.
+The simulation should start by checking the validity of the input data: $l$ and $h$ are positive integers, $p$ is a value between 0 and 1, and the initial positions of fire cells should be a list of positive integer pairs ($x$, $y$) where $0 < x \leq l$ and $0 < y \leq h$.
 
 Then, at each time-step, the simulation should:
 1. Propagate the fire;
@@ -41,14 +41,14 @@ Then, at each time-step, the simulation should:
 
 ### Fire propagation
 
-At first we must determine what happens when a living tree is surrounded by more than one fire: should the probabilities _p_ pile up? Or should it be kept at _p_?
+At first we must determine what happens when a living tree is surrounded by more than one fire: should the probabilities $p$ pile up? Or should it be kept at $p$?
 
 One solution is to keep a list of cells where we want the fire to propagate, and this should be adaptable to each possibility to the question that we are asking.
-If we should keep the same _p_, then we simply avoid duplicates in the propagation list.
-If _p_ should pile up, we intentionally duplicate or we add an effective probability factor to each element of the list.
+If we should keep the same $p$, then we simply avoid duplicates in the propagation list.
+If $p$ should pile up, we intentionally duplicate or we add an effective probability factor to each element of the list.
 
 In order to make a decision, we shall consider that the chance of a tree catching fire increases the more it is surrounded by fire.
-Also, considering possible updates to the simulation that could take other factors into account that could alter the base probability _p_ (for example, wind or humidity), the solution with an effective probability is to be preferred.
+Also, considering possible updates to the simulation that could take other factors into account that could alter the base probability $p$ (for example, wind or humidity), the solution with an effective probability is to be preferred.
 
 Once the propagation list is complete, we can then move on to making the changes to the data-base.
 
