@@ -32,7 +32,7 @@ Let us store the forest field data in an integer table initialized at 0 everywhe
 This avoids creating $ h \ctimes l$ objects in order to be more memory-efficient.
 Let us also define that 0 represents the base-state of a living tree, while 1 represents a fire and 2 represents ashes.
 
-The simulation should start by checking the validity of the input data: _h_ and _l_ are positive integers, _p_ is a value between 0 and 1, and the initial positions of fire cells should be a list of positive integer pairs (_x_, _y_) where $0 < x <= l$ and $0 < y <= h$.
+The simulation should start by checking the validity of the input data: _h_ and _l_ are positive integers, _p_ is a value between 0 and 1, and the initial positions of fire cells should be a list of positive integer pairs (_x_, _y_) where $0 < x \leq l$ and $0 < y \leq h$.
 
 Then, at each time-step, the simulation should:
 1. Propagate the fire;
