@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class ForestField {
 
     private int h;
     private int l;
 
-    private int p;
+    private double p;
 
     public class Position {
         private int x, y;
@@ -47,7 +50,7 @@ public class ForestField {
         }
     }
 
-    public ForestField(int height, int length, int probabilityFireSpread, List<Position> startingFirePositions) {
+    public ForestField(int height, int length, double probabilityFireSpread, List<Position> listStartingFires) {
         
         if (h <= 0) throw new IllegalArgumentException("Forest field height has to be larger than zero");
         this.h = height;
@@ -58,13 +61,13 @@ public class ForestField {
         if (p < 0 || p > 1) throw new IllegalArgumentException("Fire spread probability must be a value between zero and one");
         this.p = probabilityFireSpread;
 
-        for (Position pos : startingFirePositions) {
+        for (Position pos : listStartingFires) {
             int x = pos.getX();
             int y = pos.getY();
             if (x <= 0 || x > l) throw new IllegalArgumentException("Invalid position: X coordinate must be between 1 and the field length L");
             if (y <= 0 || y > h) throw new IllegalArgumentException("Invalid position: Y coordinate must be between 1 and the field height H");
         }
-        this.startingFirePositions = new ArrayList<Position>(startingFirePositions);
+        this.startingFirePositions = new ArrayList<Position>(listStartingFires);
 
         this.forestFieldSlots = new int[l][h];
         for (Position pos : this.startingFirePositions) {
@@ -73,7 +76,7 @@ public class ForestField {
             this.forestFieldSlots[x-1][y-1] = 1;
         }
 
-        this.currentFirePositions = new ArrayList<Position>(startingFirePositions);
+        this.currentFirePositions = new ArrayList<Position>(listStartingFires);
     }
 
     public int getH() {
@@ -118,7 +121,7 @@ public class ForestField {
             int x = pos.getX();
             int y = pos.getY();
             // expected current value = 1
-            forestField[x-1][y-1] = 2;
+            forestFieldSlots[x-1][y-1] = 2;
         }
 
         // new fires
@@ -126,7 +129,7 @@ public class ForestField {
             int x = pos.getX();
             int y = pos.getY();
             // expected current value = 0
-            forestField[x-1][y-1] = 1;
+            forestFieldSlots[x-1][y-1] = 1;
         }
 
         currentFirePositions = new ArrayList<Position>(listNewFires);
@@ -169,7 +172,7 @@ public class ForestField {
         }
 
         // check if another fire spot has already tried to spread fire to this spot
-        FireSpreadPos samePosition;
+        FireSpreadPos samePosition = null;
         for (FireSpreadPos firePos : theListFireSpread) {
             Position pos = firePos.getPos();
             int xPos = pos.getX();
@@ -181,8 +184,8 @@ public class ForestField {
 
         // no other fire spot has tried to spread its fire here
         if (samePosition == null) {
-            FireSpreadPos newFireSpread = new FireSpreadPos(x, y, p)
-            theListFireSpread.add()
+            FireSpreadPos newFireSpread = new FireSpreadPos(x, y, p);
+            theListFireSpread.add(newFireSpread);
         }
         
         // another fire spot has tried to spread its fire here: probabilities must combine

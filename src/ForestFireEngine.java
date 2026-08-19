@@ -1,27 +1,39 @@
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ForestFireEngine {
-    private ForestField forestField;
-    private ForestFireGUI forestGUI;
 
     public static void main(String[] args) {
 
         // launch GUI to get input file path
+        // dummyPath
+        Path file = new File("dummyPath").toPath();
 
-        createForestFieldFromInputParameters(file);
-
-        forestGUI = new ForestFireGUI(forestField);
+        ForestField forestField;
+        try {
+            forestField = createForestFieldFromInputParameters(file);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return;
+        }
+        ForestFireGUI forestGUI = new ForestFireGUI(forestField);
+        forestGUI.launch();
 
     }
 
-    private void createForestFieldFromInputParameters(Path inputFilePath) {
+    private static ForestField createForestFieldFromInputParameters(Path inputFilePath) {
 
         int h = 0;
         int l = 0;
         double p = 0;
-        List<Position> listStartingFires = new ArrayList<Position>;
+        List<ForestField.Position> listStartingFires = new ArrayList<ForestField.Position>();
 
         // Read inputs from file
 
-        forestField = new ForestField(h, l, listStartingFires);
-
+        ForestField forestField = new ForestField(h, l, p, listStartingFires);
+        return forestField;
     }
 }

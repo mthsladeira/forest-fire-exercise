@@ -13,7 +13,7 @@ public class ForestFireGUI {
 
         boolean fireStillBuring = true;
         while (fireStillBuring) {
-            fireStillBuring = forestField.spreadFireStep()
+            fireStillBuring = forestField.spreadFireStep();
             // update GUI according to forestField data
             
             // wait for a while
