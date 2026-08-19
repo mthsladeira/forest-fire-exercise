@@ -18,7 +18,7 @@ The simulation halts when there are no more slots on fire.
 ## Inputs
 
 The inputs are $h$, $l$ and $p$, as well as a list of the initial fire positions.
-The data is stored in a JSON file.
+The data is stored in a .properties file.
 
 ## Outputs
 
