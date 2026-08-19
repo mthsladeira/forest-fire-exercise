@@ -74,13 +74,14 @@ The GUI, developed in a separate class, shall always look for the data in the re
 
 1. Import data from input file
 2. Check data validity
-3. Create forest table - encapsulated in an object with precise interfaces
-4. Create fire list - encapsulated in an object
-5. Create propagation list - encapsulated in an object
+3. Create forest table
+4. Create fire list
+5. Create propagation list
 6. Begin loop
     1. Create propagation list based on fire list
-    2. Change register turning fire into ash based on fire list
-    3. Recreate fire list based on propagation list and register
-    4. Register fire positions
+    1. Decide if fire catches or not based on p, creating a "new fire" list
+    2. Change register, turning fire into ash based on fire list
+    2. Change register, turning trees into fire based on "new fire" list
+    4. Swap fire list with "new fire" list
     5. Raise flag: updated forest
     6. Check if fire list is empty: in that case, exit loop
