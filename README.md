@@ -85,3 +85,14 @@ The GUI, developed in a separate class, shall always look for the data in the re
     4. Swap fire list with "new fire" list
     5. Raise flag: updated forest
     6. Check if fire list is empty: in that case, exit loop
+
+## Testing
+
+Compile, then edit simulation.properties, finally launch.
+
+Interesting cases:
+
+1. $h$ or $l$ is zero;
+2. $p = 0$ or $p = 1$;
+3. $(x,y)$ with $x > l$ or $y > h$;
+4. Empty list of starting fire positions.
