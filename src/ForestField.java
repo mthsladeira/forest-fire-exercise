@@ -8,20 +8,6 @@ public class ForestField {
 
     private double p;
 
-    public class Position {
-        private int x, y;
-        public Position(int x, int y) {
-            this.x=x;
-            this.y=y;
-        }
-        public int getX() {
-            return x;
-        }
-        public int getY() {
-            return y;
-        }
-    }
-
     private List<Position> startingFirePositions;
 
     private int[][] forestFieldSlots;
@@ -52,20 +38,20 @@ public class ForestField {
 
     public ForestField(int height, int length, double probabilityFireSpread, List<Position> listStartingFires) {
         
-        if (h <= 0) throw new IllegalArgumentException("Forest field height has to be larger than zero");
+        if (height <= 0) throw new IllegalArgumentException("Forest field height has to be larger than zero");
         this.h = height;
 
-        if (l <= 0) throw new IllegalArgumentException("Forest field length has to be larger than zero");
+        if (length <= 0) throw new IllegalArgumentException("Forest field length has to be larger than zero");
         this.l = length;
 
-        if (p < 0 || p > 1) throw new IllegalArgumentException("Fire spread probability must be a value between zero and one");
+        if (probabilityFireSpread < 0 || probabilityFireSpread > 1) throw new IllegalArgumentException("Fire spread probability must be a value between zero and one");
         this.p = probabilityFireSpread;
 
         for (Position pos : listStartingFires) {
             int x = pos.getX();
             int y = pos.getY();
-            if (x <= 0 || x > l) throw new IllegalArgumentException("Invalid position: X coordinate must be between 1 and the field length L");
-            if (y <= 0 || y > h) throw new IllegalArgumentException("Invalid position: Y coordinate must be between 1 and the field height H");
+            if (x <= 0 || x > l) throw new IllegalArgumentException("Invalid position: X coordinate must be between 1 and the field length L (" + l + "), but " + x + " was given");
+            if (y <= 0 || y > h) throw new IllegalArgumentException("Invalid position: Y coordinate must be between 1 and the field height H (" + h + "), but " + y + " was given");
         }
         this.startingFirePositions = new ArrayList<Position>(listStartingFires);
 
